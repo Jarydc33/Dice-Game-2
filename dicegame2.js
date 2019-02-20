@@ -450,7 +450,6 @@ function buttons(storeValueNums, whoStart){
 		
 				document.getElementById("beginButton").onclick = function(){};
 				document.getElementById("rollButton").onclick = function(){
-				document.getElementById("gameScreenText2").innerHTML = "Computer Score: " + storeValueNums.pigCompScore + " <br /> User Score: " + storeValueNums.pigUserScore + "<br /> ";
 					
 					for(let i = 0; i < storeValueNums.computerDice; i++ ){
 							
@@ -461,8 +460,10 @@ function buttons(storeValueNums, whoStart){
 							
 						storeValueNums.pigUserScore += rollDice(storeValueNums.userDice);
 					}
-
+					document.getElementById("gameScreenText").innerHTML = "Computer Score: " + storeValueNums.pigCompScore + " <br /> User Score: " + storeValueNums.pigUserScore + "<br /> ";
+					
 					if(storeValueNums.pigCompScore > 100 && storeValueNums.pigUserScore < 100){
+						document.getElementById("gameScreenText").innerHTML = "Computer Score: " + storeValueNums.pigCompScore + " <br /> User Score: " + storeValueNums.pigUserScore + "<br /> ";
 						document.getElementById("gameScreenText2").innerHTML = "Uh-oh, looks like the computer won with a score of: " + storeValueNums.pigCompScore
 						+ ". Press begin to start a new game.";
 
@@ -472,6 +473,7 @@ function buttons(storeValueNums, whoStart){
 						currentRound = 1;
 					}
 					else if(storeValueNums.pigUserScore >= 100){
+						document.getElementById("gameScreenText").innerHTML = "Computer Score: " + storeValueNums.pigCompScore + " <br /> User Score: " + storeValueNums.pigUserScore + "<br /> ";
 						document.getElementById("gameScreenText2").innerHTML = "Looks like you won with a score of: " + storeValueNums.pigUserScore
 						+ ". Press begin to start a new game.";
 
