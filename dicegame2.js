@@ -10,12 +10,12 @@ function startGame(){
 	document.getElementById("gameScreenText2").innerHTML = "";
 	document.getElementById("gameScreenText").innerHTML = "Welcome to the game! Press roll below to see who will go first!";
 
-	let test;
+	let whoStart;
 	let firstRoll;
 
-	test = initialRoll();
+	whoStart = initialRoll();
 
-	if(test == true){
+	if(whoStart == true){
 
 		document.getElementById("gameScreenText").innerHTML = "The computer won the roll and will begin the first round." 
 		+ "<br /> Press begin to start the game.";
@@ -58,7 +58,7 @@ function beginRound(storeValueNums, whoStart){
 
 			}
 			else{
-				for(let i = 0; i < storeValue.numDice; i++ ){
+				for(let i = 0; i < storeValueNums.numDice; i++ ){
 					
 					yourAnswer[i] = rollDice(storeValueNums.numSides);
 
