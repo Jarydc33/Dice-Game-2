@@ -159,7 +159,7 @@ function compareDice(storeValue, potential, whoStart){
 		}
 		else{
 			
-			document.getElementById("gameScreenText2").innerHTML = "You won the double down round!" 
+			document.getElementById("gameScreenText2").innerHTML = "You won the double down round!"
 			+ "<br /> Press begin to start the next round";
 			scoreKeeper(storeValue.doubleScore, 2, storeValue);
 			document.getElementById("rollButton").onclick = function(){};
@@ -178,6 +178,7 @@ function storeValue(roundNum, whoStart, userScore, computerScore){
 
 			document.getElementById("whichRound").innerHTML = "ROUND 1";
 			document.getElementById("roundRules").innerHTML = "The goal of round 1 is to get a straight of 1,2,3,4. You will be playing with four 4-sided dice.";
+			document.getElementById("gameScreenText2").innerHTML = "";
 
 			let round1 = {
 				numSides: 4,
@@ -199,6 +200,7 @@ function storeValue(roundNum, whoStart, userScore, computerScore){
 
 			document.getElementById("whichRound").innerHTML = "ROUND 2";
 			document.getElementById("roundRules").innerHTML = "The goal of round 2 is to get a full house threes over twos (2,2,3,3,3). You will be playing with five 6-sided dice.";
+			document.getElementById("gameScreenText2").innerHTML = "";
 
 			let round2 = {
 				numSides: 6,
@@ -219,6 +221,7 @@ function storeValue(roundNum, whoStart, userScore, computerScore){
 		case 3:
 			document.getElementById("whichRound").innerHTML = "ROUND 3";
 			document.getElementById("roundRules").innerHTML = "The goal of round 3 is to get three-of-a-kind of ones and eights (1,1,1,8,8,8). You will be playing with six 8-sided dice.";
+			document.getElementById("gameScreenText2").innerHTML = "";
 
 			let round3 = {
 				numSides: 8,
@@ -239,6 +242,7 @@ function storeValue(roundNum, whoStart, userScore, computerScore){
 		case 4:
 			document.getElementById("whichRound").innerHTML = "ROUND 4";
 			document.getElementById("roundRules").innerHTML = "The goal of round 4 is to get a straight of 2 through 7 and a single 10. You will be playing with seven 10-sided dice.";
+			document.getElementById("gameScreenText2").innerHTML = "";
 
 			let round4 = {
 				numSides: 10,
@@ -258,6 +262,7 @@ function storeValue(roundNum, whoStart, userScore, computerScore){
 		case 5:
 			document.getElementById("whichRound").innerHTML = "ROUND 5";
 			document.getElementById("roundRules").innerHTML = "The goal of round 5 is to get four of a kind of 12s. You will be playing with four 12-sided dice.";
+			document.getElementById("gameScreenText2").innerHTML = "";
 
 			let round5 = {
 				numSides: 12,
@@ -267,7 +272,7 @@ function storeValue(roundNum, whoStart, userScore, computerScore){
 				computerScore: computerScore,
 				roundNum: 6,
 				ddNum: 5,
-				scor: 500,
+				score: 500,
 				doubleScore: 1000,
 				buttonNum: 5,
 
@@ -278,6 +283,7 @@ function storeValue(roundNum, whoStart, userScore, computerScore){
 		case 6:
 			document.getElementById("whichRound").innerHTML = "ROUND 6";
 			document.getElementById("roundRules").innerHTML = "The goal of round 6 is to get a single 20. You will be playing with one 20-sided dice.";
+			document.getElementById("gameScreenText2").innerHTML = "";
 
 			let round6 = {
 				numSides: 20,
@@ -285,9 +291,9 @@ function storeValue(roundNum, whoStart, userScore, computerScore){
 				correct: [20],
 				userScore: userScore,
 				computerScore: computerScore,
-				roundNum: 6,
+				roundNum: 7,
 				ddNum: 6,
-				scor: 600,
+				score: 600,
 				doubleScore: 1200,
 				buttonNum: 6,
 
@@ -295,13 +301,33 @@ function storeValue(roundNum, whoStart, userScore, computerScore){
 			beginRound(round6, whoStart);
 			break;
 
+		case 7:
+			document.getElementById("whichRound").innerHTML = "PIG";
+			document.getElementById("roundRules").innerHTML = "Welcome to PIG! This is the last and final round."
+			+ " In this round, your goal will be to the first one to get a score of 100.";
+			document.getElementById("gameScreenText2").innerHTML = "";
+			document.getElementById("gameScreenText").innerHTML = "";
+
+			let test = false;
+			if(computerScore > userScore){test = true;}
+
+			let round7 = {
+				numSides: 6,
+				userDice: test ?  5 : 6,
+				computerDice: test ? 6 : 5,
+
+
+
+
+
+			}
+
 		default:
 
 			break;
 
 
 	}
-
 }
 
 function rollDice(numberOfSides){
@@ -348,7 +374,7 @@ function buttons(storeValueNums, whoStart){
 		case 1:
 			if(storeValueNums.buttonNum < storeValueNums.roundNum){
 				document.getElementById("rollButton").onclick = function(){storeValueNums.buttonNum++; localRound = 0; beginRound(storeValueNums, whoStart);}
-				document.getElementById("beginButton").onclick = function(){ scoreKeeper(storeValueNums.score, 2, storeValueNums); storeValue(storeValueNums.roundNum, whoStart, storeValueNums.userScore, storeValueNums.computerScore);}
+				document.getElementById("beginButton").onclick = function(){ localRound = 0; scoreKeeper(storeValueNums.score, 2, storeValueNums); storeValue(storeValueNums.roundNum, whoStart, storeValueNums.userScore, storeValueNums.computerScore);}
 			}
 			else{
 				document.getElementById("beginButton").onclick = function(){localRound = 0; storeValue(storeValueNums.roundNum, whoStart,storeValueNums.userScore, storeValueNums.computerScore);}
@@ -360,7 +386,7 @@ function buttons(storeValueNums, whoStart){
 		case 2:
 			if(storeValueNums.buttonNum < storeValueNums.roundNum){
 				document.getElementById("rollButton").onclick = function(){storeValueNums.buttonNum++; localRound = 0; beginRound(storeValueNums, whoStart);}
-				document.getElementById("beginButton").onclick = function(){ scoreKeeper(storeValueNums.score, 2, storeValueNums); storeValue(storeValueNums.roundNum, whoStart, storeValueNums.userScore, storeValueNums.computerScore);}
+				document.getElementById("beginButton").onclick = function(){ localRound = 0; scoreKeeper(storeValueNums.score, 2, storeValueNums); storeValue(storeValueNums.roundNum, whoStart, storeValueNums.userScore, storeValueNums.computerScore);}
 			}
 			else{
 				document.getElementById("beginButton").onclick = function(){localRound = 0; storeValue(storeValueNums.roundNum, whoStart,storeValueNums.userScore, storeValueNums.computerScore);}
@@ -371,7 +397,7 @@ function buttons(storeValueNums, whoStart){
 		case 3:
 			if(storeValueNums.buttonNum < storeValueNums.roundNum){
 				document.getElementById("rollButton").onclick = function(){storeValueNums.buttonNum++; localRound = 0; beginRound(storeValueNums, whoStart);}
-				document.getElementById("beginButton").onclick = function(){ scoreKeeper(storeValueNums.score, 2, storeValueNums); storeValue(storeValueNums.roundNum, whoStart, storeValueNums.userScore, storeValueNums.computerScore);}
+				document.getElementById("beginButton").onclick = function(){ localRound = 0; scoreKeeper(storeValueNums.score, 2, storeValueNums); storeValue(storeValueNums.roundNum, whoStart, storeValueNums.userScore, storeValueNums.computerScore);}
 			}
 			else{
 				document.getElementById("beginButton").onclick = function(){localRound = 0; storeValue(storeValueNums.roundNum, whoStart,storeValueNums.userScore, storeValueNums.computerScore);}
@@ -382,7 +408,7 @@ function buttons(storeValueNums, whoStart){
 		case 4:
 			if(storeValueNums.buttonNum < storeValueNums.roundNum){
 				document.getElementById("rollButton").onclick = function(){storeValueNums.buttonNum++; localRound = 0; beginRound(storeValueNums, whoStart);}
-				document.getElementById("beginButton").onclick = function(){ scoreKeeper(storeValueNums.score, 2, storeValueNums); storeValue(storeValueNums.roundNum, whoStart, storeValueNums.userScore, storeValueNums.computerScore);}
+				document.getElementById("beginButton").onclick = function(){ localRound = 0; scoreKeeper(storeValueNums.score, 2, storeValueNums); storeValue(storeValueNums.roundNum, whoStart, storeValueNums.userScore, storeValueNums.computerScore);}
 			}
 			else{
 				document.getElementById("beginButton").onclick = function(){localRound = 0; storeValue(storeValueNums.roundNum, whoStart,storeValueNums.userScore, storeValueNums.computerScore);}
@@ -393,7 +419,7 @@ function buttons(storeValueNums, whoStart){
 		case 5:
 			if(storeValueNums.buttonNum < storeValueNums.roundNum){
 				document.getElementById("rollButton").onclick = function(){storeValueNums.buttonNum++; localRound = 0; beginRound(storeValueNums, whoStart);}
-				document.getElementById("beginButton").onclick = function(){ scoreKeeper(storeValueNums.score, 2, storeValueNums); storeValue(storeValueNums.roundNum, whoStart, storeValueNums.userScore, storeValueNums.computerScore);}
+				document.getElementById("beginButton").onclick = function(){ localRound = 0; scoreKeeper(storeValueNums.score, 2, storeValueNums); storeValue(storeValueNums.roundNum, whoStart, storeValueNums.userScore, storeValueNums.computerScore);}
 			}
 			else{
 				document.getElementById("beginButton").onclick = function(){localRound = 0; storeValue(storeValueNums.roundNum, whoStart,storeValueNums.userScore, storeValueNums.computerScore);}
@@ -404,7 +430,7 @@ function buttons(storeValueNums, whoStart){
 		case 6:
 			if(storeValueNums.buttonNum < storeValueNums.roundNum){
 				document.getElementById("rollButton").onclick = function(){storeValueNums.buttonNum++; localRound = 0; beginRound(storeValueNums, whoStart);}
-				document.getElementById("beginButton").onclick = function(){ scoreKeeper(storeValueNums.score, 2, storeValueNums); storeValue(storeValueNums.roundNum, whoStart, storeValueNums.userScore, storeValueNums.computerScore);}
+				document.getElementById("beginButton").onclick = function(){ localRound = 0; scoreKeeper(storeValueNums.score, 2, storeValueNums); storeValue(storeValueNums.roundNum, whoStart, storeValueNums.userScore, storeValueNums.computerScore);}
 			}
 			else{
 				document.getElementById("beginButton").onclick = function(){localRound = 0; storeValue(storeValueNums.roundNum, whoStart,storeValueNums.userScore, storeValueNums.computerScore);}
@@ -414,4 +440,10 @@ function buttons(storeValueNums, whoStart){
 
 
 	}
+}
+
+function pig(storeValueNums){
+
+
+
 }
