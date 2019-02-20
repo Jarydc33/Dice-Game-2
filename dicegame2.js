@@ -1,7 +1,6 @@
 let localRound = 0;
 let currentRound = 1;
 
-document.getElementById("gameScreenText").innerHTML = "Welcome to the game! Press roll below to see who will go first!";
 document.getElementById("rollButton").onclick = function(){ startGame(); }
 
 function startGame(){
@@ -35,6 +34,8 @@ function startGame(){
 } 
 
 function beginRound(storeValue, whoStart){
+
+	document.getElementById("gameScreenText").innerHTML = "Welcome to the game! Press roll below to see who will go first!";
 
 	let computerAnswer = [];
 	let yourAnswer = [];
@@ -467,6 +468,8 @@ function buttons(storeValueNums, whoStart){
 
 						document.getElementById("beginButton").onclick = function(){ startGame()};
 						document.getElementById("rollButton").onclick = function(){};
+						localRound = 0;
+						currentRound = 1;
 					}
 					else if(storeValueNums.pigUserScore >= 100){
 						document.getElementById("gameScreenText2").innerHTML = "Looks like you won with a score of: " + storeValueNums.pigUserScore
@@ -474,6 +477,8 @@ function buttons(storeValueNums, whoStart){
 
 						document.getElementById("beginButton").onclick = function(){ startGame()};
 						document.getElementById("rollButton").onclick = function(){};
+						localRound = 0;
+						currentRound = 1;
 					}				
 
 				};	
