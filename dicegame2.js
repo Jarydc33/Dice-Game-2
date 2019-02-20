@@ -1,13 +1,15 @@
 let localRound = 0;
 let currentRound = 1;
 
+document.getElementById("gameScreenText").innerHTML = "Welcome to the game! Press roll below to see who will go first!";
+
 document.getElementById("rollButton").onclick = function(){ startGame(); }
 
 function startGame(){
 
 	document.getElementById("gameScreenText2").innerHTML = "";
+	document.getElementById("gameScreenText").innerHTML = "Welcome to the game! Press roll below to see who will go first!";
 
-	let userInput;
 	let test;
 	let firstRoll;
 
@@ -33,9 +35,7 @@ function startGame(){
 	document.getElementById("rollButton").onclick = function(){};
 } 
 
-function beginRound(storeValue, whoStart){
-
-	document.getElementById("gameScreenText").innerHTML = "Welcome to the game! Press roll below to see who will go first!";
+function beginRound(storeValueNums, whoStart){
 
 	let computerAnswer = [];
 	let yourAnswer = [];
@@ -49,21 +49,21 @@ function beginRound(storeValue, whoStart){
 		do{
 			if(whoStart % 2 != 0){
 
-				for(let i = 0; i < storeValue.numDice; i++ ){
+				for(let i = 0; i < storeValueNums.numDice; i++ ){
 					
-					computerAnswer[i] = rollDice(storeValue.numSides);
+					computerAnswer[i] = rollDice(storeValueNums.numSides);
 
 				}
-				isCorrectComputer = compareDice(storeValue,computerAnswer, whoStart);
+				isCorrectComputer = compareDice(storeValueNums,computerAnswer, whoStart);
 
 			}
 			else{
 				for(let i = 0; i < storeValue.numDice; i++ ){
 					
-					yourAnswer[i] = rollDice(storeValue.numSides);
+					yourAnswer[i] = rollDice(storeValueNums.numSides);
 
 				}
-				isCorrectUser = compareDice(storeValue,yourAnswer, whoStart);
+				isCorrectUser = compareDice(storeValueNums,yourAnswer, whoStart);
 
 			}
 			whoStart++;
@@ -72,7 +72,7 @@ function beginRound(storeValue, whoStart){
 	whoStart -= 1;
 }
 
-function compareDice(storeValue, potential, whoStart){
+function compareDice(storeValueNums, potential, whoStart){
 
 	let check = 0;
 	let isCorrect;
@@ -83,9 +83,9 @@ function compareDice(storeValue, potential, whoStart){
 
 	if(whoStart % 2 != 0){
 	
-		for(let i = 0; i < storeValue.correct.length; i++){
+		for(let i = 0; i < storeValueNums.correct.length; i++){
 
-			if(potential[i] == storeValue.correct[i]){
+			if(potential[i] == storeValueNums.correct[i]){
 
 				check++;
 
@@ -93,15 +93,15 @@ function compareDice(storeValue, potential, whoStart){
 			else{return false;}
 		}
 
-		if(storeValue.ddNum == currentRound){
+		if(storeValueNums.ddNum == currentRound){
 
 			currentRound++;
 
-			if(check == storeValue.numDice){
+			if(check == storeValueNums.numDice){
 
 				doubleDown = rollDice(3);
 
-				if(storeValue.userScore > storeValue.computerScore && storeValue.numRound == 6){
+				if(storeValueNums.userScore > storeValueNums.computerScore && storeValueNums.numRound == 6){
 					//if the computer is losing in round six and wins the roll, it will always choose to double down
 					doubleDown = 1;
 				}
@@ -109,17 +109,17 @@ function compareDice(storeValue, potential, whoStart){
 
 					document.getElementById("gameScreenText").innerHTML = "The computer won the round with " + potential 
 					+ " and decided to try his luck on a double down!";
-					storeValue.buttonNum++;
-					beginRound(storeValue,whoStart);
+					storeValueNums.buttonNum++;
+					beginRound(storeValueNums,whoStart);
 				}
 				else{
 
 					document.getElementById("gameScreenText").innerHTML = "The computer won the round with " + potential 
 					+ " and decided to keep his points and begin the next round. Press begin to start.";
-					scoreKeeper(storeValue.score, 1, storeValue);
-					storeValue.buttonNum++;
+					scoreKeeper(storeValueNums.score, 1, storeValueNums);
+					storeValueNums.buttonNum++;
 					localRound++;
-					buttons(storeValue, whoStart);
+					buttons(storeValueNums, whoStart);
 					
 					return true;
 				}
@@ -130,19 +130,19 @@ function compareDice(storeValue, potential, whoStart){
 
 			document.getElementById("gameScreenText2").innerHTML = "The computer has won the double down round!" 
 			+ "<br /> Press begin to start the next round";
-			scoreKeeper(storeValue.doubleScore,1, storeValue);
+			scoreKeeper(storeValueNums.doubleScore,1, storeValueNums);
 			document.getElementById("rollButton").onclick = function(){};
-			storeValue.buttonNum++;
-			buttons(storeValue, whoStart);
+			storeValueNums.buttonNum++;
+			buttons(storeValueNums, whoStart);
 
 			return true;
 		}
 	}
 	else{
 
-		for(let i = 0; i < storeValue.correct.length; i++){
+		for(let i = 0; i < storeValueNums.correct.length; i++){
 
-			if(potential[i] == storeValue.correct[i]){
+			if(potential[i] == storeValueNums.correct[i]){
 
 				check++;
 
@@ -150,13 +150,13 @@ function compareDice(storeValue, potential, whoStart){
 			else{return false;}
 		}
 
-		if(storeValue.ddNum == currentRound){
+		if(storeValueNums.ddNum == currentRound){
 			currentRound++;
-			if(check == storeValue.numDice){
+			if(check == storeValueNums.numDice){
 				document.getElementById("gameScreenText").innerHTML = "You won the round with " + potential + "! Would you like to try the double down round? " 
 				+ "<br /> Press roll to play or begin to start the next round.";
 
-				buttons(storeValue, whoStart);
+				buttons(storeValueNums, whoStart);
 				return true;
 			}
 		}
@@ -164,9 +164,9 @@ function compareDice(storeValue, potential, whoStart){
 			
 			document.getElementById("gameScreenText2").innerHTML = "You won the double down round!"
 			+ "<br /> Press begin to start the next round";
-			scoreKeeper(storeValue.doubleScore, 2, storeValue);
+			scoreKeeper(storeValueNums.doubleScore, 2, storeValueNums);
 			document.getElementById("rollButton").onclick = function(){};
-			buttons(storeValue, whoStart);
+			buttons(storeValueNums, whoStart);
 
 			return true;
 		}
@@ -344,18 +344,18 @@ function rollDice(numberOfSides){
 		return yourRoll;		 
 }
 
-function scoreKeeper(scoreUpdate, whichScore, storeValue){
+function scoreKeeper(scoreUpdate, whichScore, storeValueNums){
 
 	if(whichScore == 1){
 
-		storeValue.computerScore += scoreUpdate
-		document.getElementById("gameScreen").innerHTML = "Computer Score: " + storeValue.computerScore + " <br /> User Score: " + storeValue.userScore + "<br /> ";
+		storeValueNums.computerScore += scoreUpdate
+		document.getElementById("gameScreen").innerHTML = "Computer Score: " + storeValueNums.computerScore + " <br /> User Score: " + storeValueNums.userScore + "<br /> ";
 
 		// return computerScore;
 	}
 	else if(whichScore == 2){
 
-		storeValue.userScore +=scoreUpdate;
+		storeValueNums.userScore +=scoreUpdate;
 		document.getElementById("gameScreen").innerHTML = "Computer Score: " + storeValue.computerScore + " <br /> User Score: " + storeValue.userScore + "<br /> ";
 		// return userScore;
 	}	
