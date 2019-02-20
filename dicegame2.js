@@ -101,7 +101,7 @@ function compareDice(storeValueNums, potential, whoStart){
 
 				doubleDown = rollDice(3);
 
-				if(storeValueNums.userScore > storeValueNums.computerScore && storeValueNums.numRound == 6){
+				if(storeValueNums.userScore > storeValueNums.computerScore && storeValueNums.numRound == 7){
 					//if the computer is losing in round six and wins the roll, it will always choose to double down
 					doubleDown = 1;
 				}
@@ -356,7 +356,7 @@ function scoreKeeper(scoreUpdate, whichScore, storeValueNums){
 	else if(whichScore == 2){
 
 		storeValueNums.userScore +=scoreUpdate;
-		document.getElementById("gameScreen").innerHTML = "Computer Score: " + storeValue.computerScore + " <br /> User Score: " + storeValue.userScore + "<br /> ";
+		document.getElementById("gameScreen").innerHTML = "Computer Score: " + storeValueNums.computerScore + " <br /> User Score: " + storeValueNums.userScore + "<br /> ";
 		// return userScore;
 	}	
 }
