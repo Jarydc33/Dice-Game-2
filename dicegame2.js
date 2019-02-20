@@ -1,10 +1,12 @@
 let localRound = 0;
 let currentRound = 1;
+
 document.getElementById("gameScreenText").innerHTML = "Welcome to the game! Press roll below to see who will go first!";
-// document.getElementById("gameScreen").innerHTML = "Computer Score: " + computerScore + " <br /> User Score: " + userScore + " <br /> ";
 document.getElementById("rollButton").onclick = function(){ startGame(); }
 
 function startGame(){
+
+	document.getElementById("gameScreenText2").innerHTML = "";
 
 	let userInput;
 	let test;
@@ -307,6 +309,7 @@ function storeValue(roundNum, whoStart, userScore, computerScore){
 			+ " In this round, your goal will be to the first one to get a score of 100.";
 			document.getElementById("gameScreenText2").innerHTML = "";
 			document.getElementById("gameScreenText").innerHTML = "";
+			document.getElementById("gameScreen").innerHTML = "";
 
 			let test = false;
 			if(computerScore > userScore){test = true;}
@@ -315,12 +318,16 @@ function storeValue(roundNum, whoStart, userScore, computerScore){
 				numSides: 6,
 				userDice: test ?  5 : 6,
 				computerDice: test ? 6 : 5,
-
-
-
-
+				test,
+				userScore: userScore,
+				computerScore: computerScore,
+				ddNum : 7,
+				pigCompScore: 0,
+				pigUserScore: 0,
 
 			}
+
+			pig(round7)
 
 		default:
 
@@ -438,12 +445,47 @@ function buttons(storeValueNums, whoStart){
 			}
 			break;
 
+		case 7:
+		
+				document.getElementById("beginButton").onclick = function(){};
+				document.getElementById("rollButton").onclick = function(){
+				document.getElementById("gameScreenText2").innerHTML = "Computer Score: " + storeValueNums.pigCompScore + " <br /> User Score: " + storeValueNums.pigUserScore + "<br /> ";
+					
+					for(let i = 0; i < storeValueNums.computerDice; i++ ){
+							
+						storeValueNums.pigCompScore += rollDice(storeValueNums.computerDice);
 
-	}
+					}
+					for(let i = 0; i < storeValueNums.userDice; i++ ){
+							
+						storeValueNums.pigUserScore += rollDice(storeValueNums.userDice);
+					}
+
+					if(storeValueNums.pigCompScore > 100 && storeValueNums.pigUserScore < 100){
+						document.getElementById("gameScreenText2").innerHTML = "Uh-oh, looks like the computer won with a score of: " + storeValueNums.pigCompScore
+						+ ". Press begin to start a new game.";
+
+						document.getElementById("beginButton").onclick = function(){ startGame()};
+						document.getElementById("rollButton").onclick = function(){};
+					}
+					else if(storeValueNums.pigUserScore >= 100){
+						document.getElementById("gameScreenText2").innerHTML = "Looks like you won with a score of: " + storeValueNums.pigUserScore
+						+ ". Press begin to start a new game.";
+
+						document.getElementById("beginButton").onclick = function(){ startGame()};
+						document.getElementById("rollButton").onclick = function(){};
+					}				
+
+				};	
+		
+		}
 }
 
 function pig(storeValueNums){
 
+	buttons(storeValueNums, 1);
 
-
+	if(storeValueNums.test){document.getElementById("gameScreenText").innerHTML = "The computer won the game and will be playing with 6 dice and you will be playing with 5. Press roll to begin."};
+	if(storeValueNums.test == false){document.getElementById("gameScreenText").innerHTML = "You won the six rounds and will be playing with 6 dice and the computer will be playing with 5. Press roll to begin."};
 }
+
