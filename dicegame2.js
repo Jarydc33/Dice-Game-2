@@ -174,7 +174,7 @@ function compareDice(storeValueNums, potential, whoStart){
 }
 
 function storeValue(roundNum, whoStart, userScore, computerScore){
-
+	
 	switch(roundNum){
 
 		case 1:
@@ -461,7 +461,7 @@ function buttons(storeValueNums, whoStart){
 						storeValueNums.pigUserScore += rollDice(storeValueNums.userDice);
 					}
 					document.getElementById("gameScreenText").innerHTML = "Computer Score: " + storeValueNums.pigCompScore + " <br /> User Score: " + storeValueNums.pigUserScore + "<br /> ";
-					
+
 					if(storeValueNums.pigCompScore > 100 && storeValueNums.pigUserScore < 100){
 						document.getElementById("gameScreenText").innerHTML = "Computer Score: " + storeValueNums.pigCompScore + " <br /> User Score: " + storeValueNums.pigUserScore + "<br /> ";
 						document.getElementById("gameScreenText2").innerHTML = "Uh-oh, looks like the computer won with a score of: " + storeValueNums.pigCompScore
